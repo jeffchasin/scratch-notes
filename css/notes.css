@@ -1,0 +1,175 @@
+:root {
+  color-scheme: light dark; /* both supported */
+}
+
+body {
+  background: #D8DEE9;
+  color: #434C5E;
+  font-stretch: 100%;
+  font: 1.1em/1.5 'Atkinson Hyperlegible';
+  margin: 40px 0;
+  min-height: 100vh;
+  word-break: break-word;
+}
+
+body ::selection {
+  background: #BBD6FB;
+  color: #253746;
+  text-shadow: none;
+}
+
+label,
+textarea {
+    outline: none;
+}
+
+textarea {
+  background: #E5E9F0;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  box-shadow: 0px 0px 5px 2px #999;
+  display: block;
+  font-size: 1.1em;
+  letter-spacing: 0.013em;
+  line-height: 1.6;
+  margin: 40px auto;
+  max-width: 60%;
+  padding: 2em 4em;;
+  resize: vertical;
+}
+
+label {
+    display: block;
+    font-family: 'Notulen Serif Display';
+    font-size: 1.5rem;
+    font-stretch: 100%;
+    margin: 0 auto 20px auto;
+    width: 80px;;
+}
+
+/* Theme Toggle */
+.toggle {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: #707070;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  display: block;
+  height: 32px;
+  margin-right: 10px;
+  margin-top: -55px;
+  outline: none;
+  overflow: hidden;
+  position: relative;
+  left: 75%;
+  transition: background-color ease 0.3s;
+  width: 75px;
+}
+
+.toggle::before {
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  color: #E5E9F0;
+  content: "light dark";
+  display: block;
+  font-stretch: 100%;
+  font: 10px/30px 'Atkinson Hyperlegible';
+  height: 28px;
+  left: 3px;
+  position: absolute;
+  text-indent: -36px;
+  text-shadow: -1px -1px rgba(0,0,0,0.15);
+  text-transform: uppercase;
+  top: 2px;
+  transition: all cubic-bezier(0.3, 1.5, 0.7, 1) 0.3s;
+  white-space: nowrap;
+  width: 28px;
+  word-spacing: 37px;
+  z-index: 2;
+}
+
+.toggle:checked {
+  background-color: #434C5E;
+}
+
+.toggle:checked:before {
+  left: 44px;
+}
+
+/* Dark theme colors */
+body.dark {
+  color: #adbac7;
+  background: #23272D;
+}
+body.dark textarea {
+  background: #2E3440;
+  border: 1px solid #434C5E;
+  box-shadow: 0px 0px 5px 2px #4C566A;
+  color: #b7c2ce;
+}
+body.dark .toggle {
+  background-color: #3c4454;
+
+}
+body.dark .toggle::before {
+  background: #2E3440;
+  color: #adbac7;
+}
+
+/* Users who prefer dark mode */
+@media (prefers-color-scheme: dark) {
+  /* Dark theme defaults */
+  body {
+    color: #D8DEE9;
+    background: #23272D;
+  }
+  textarea {
+    background: #2E3440;
+    border: 1px solid #434C5E;
+    box-shadow: 0px 0px 5px 2px #4C566A;
+    color: #adbac7;
+  }
+  .toggle {
+    background-color: #3c4454;
+
+  }
+  .toggle::before {
+    background: #2E3440;
+    color: #adbac7;
+  }
+
+  /* Override dark mode when toggled to light */
+  body.light {
+    background: #D8DEE9;
+    color: #434C5E;
+  }
+  body.light textarea {
+    background: #E5E9F0;
+    border: 1px solid #ccc;
+    box-shadow: 0px 0px 5px 2px #999;
+    color: #434C5E;
+  }
+  body.light .toggle {
+    background-color: #707070;
+  }
+  body.light .toggle::before {
+    background: #fff;
+    color: #E5E9F0;
+    text-shadow: -1px -1px rgba(0,0,0,0.15);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  }
+  body.light .toggle:checked {
+    background-color: #434C5E;
+  }
+}
+@media (min-width: 1130px) {
+  textarea {
+    max-width: 45%;
+  }
+  .toggle {
+    left: 70%;
+  }
+}
