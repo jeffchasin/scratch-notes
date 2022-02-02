@@ -61,7 +61,7 @@ toggle.addEventListener('click', () => {
   let theme = '';
   // If they prefer dark mode and they toggled to light
   if (prefersDarkScheme.matches && toggle.checked == true) {
-    // switch to dark
+    // switch to light
     document.body.classList.remove('dark');
     document.body.classList.add('light');
     theme = 'light';
