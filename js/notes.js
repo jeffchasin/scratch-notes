@@ -25,52 +25,55 @@ notesElement.addEventListener('input', saveTyping);
 
 // Theme switching
 
-// Get the toggle for dark & light mode
-let toggle = document.getElementById('toggle');
+// Get the theme toggle
+const toggle = document.getElementById('toggle');
 // Check prefers-color-scheme
-let prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-// Check for user saved theme choice
-let savedTheme = window.localStorage.getItem('theme');
+const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+// Saved themes
+const getSavedTheme = () => window.localStorage.getItem('theme');
+const setSavedTheme = (color) => window.localStorage.setItem('theme', color);
+// Body classes
+const setBodyClass = (color) => document.body.classList.add(color);
+const removeBodyClass = (color) => document.body.classList.remove(color);
+// Set color theme
+const setColors = (addClass, removeClass, save) => {
+  setBodyClass(addClass);
+  removeBodyClass(removeClass);
+  if (save) {
+    setSavedTheme(save);
+  }
+};
 
 // If there's a saved theme, add the body class
-// and switch the toggle indicator
-if (savedTheme === 'dark') {
-  document.body.classList.add('dark');
+// and switch the toggle
+if (getSavedTheme() === 'dark') {
+  setColors('dark', 'light');
   toggle.checked = false;
-} else if (savedTheme === 'light') {
-  document.body.classList.add('light');
+} else if (getSavedTheme() === 'light') {
+  setColors('light', 'dark');
   toggle.checked = true;
 }
 
 // If no saved theme, check for prefers-color-scheme
 // https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme
-if (!savedTheme && prefersDarkScheme.matches) {
-  document.body.classList.add('dark');
-  document.body.classList.remove('light');
+if (!getSavedTheme() && prefersDarkScheme.matches) {
+  setColors('dark', 'light', 'dark');
   toggle.checked = false;
-  window.localStorage.setItem('theme', 'dark');
-} else if (!savedTheme) {
-  document.body.classList.add('light');
-  document.body.classList.remove('dark');
+} else if (!getSavedTheme() && !prefersDarkScheme.matches) {
+  setColors('light', 'dark', 'light');
   toggle.checked = true;
-  window.localStorage.setItem('theme', 'light');
 }
 
-// Listen for a click on the toggle
+// Listen for a toggle click, switch theme
 toggle.addEventListener('click', () => {
-  let theme = '';
-  // If they prefer dark mode and they toggled to light
-  if (prefersDarkScheme.matches && toggle.checked == true) {
+  // Clicked while in dark mode
+  if (getSavedTheme() === 'dark') {
     // switch to light
-    document.body.classList.remove('dark');
-    document.body.classList.add('light');
-    theme = 'light';
-  } else if (!toggle.checked) {
-    // if they toggle to dark
-    document.body.classList.remove('light');
-    document.body.classList.add('dark');
-    theme = 'dark';
+    setColors('light', 'dark', 'light');
+    toggle.checked = true;
+  } else if (getSavedTheme() === 'light') {
+    // else switch to dark
+    setColors('dark', 'light', 'dark');
+    toggle.checked = false;
   }
-  // Save current theme setting
-  window.localStorage.setItem('theme', theme);
 });
